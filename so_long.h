@@ -7,9 +7,13 @@
 // strcut for read map
 typedef struct s_map
 {
-	char    **matrix;
-	int     width;      // Number of columns (map width)
-	int     height;     // Number of rows (map height)
+	char    **map;
+	char    **copy_map;
+	int     rows;
+	int     columns;
 }t_map;
 
+
+int custom_error(char *msg, int exit_code);
+int check_map_name(char *str);
 #endif
