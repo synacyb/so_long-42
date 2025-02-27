@@ -6,11 +6,11 @@
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:26:49 by ayadouay          #+#    #+#             */
-/*   Updated: 2025/02/27 12:21:31 by ayadouay         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:54:51 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../so_long.h>
+#include "../so_long.h"
 
 int is_rectangular(t_map *data)
 {
@@ -34,29 +34,31 @@ int is_closed_by_walls(t_map *data)
 
     s_data.i = 0;
     s_data.j = 0;
-    //check first row if have a valid wall!
-    while (data->copy_map[0][s_data.j] && s_data.j < data->columns)
+
+    while (data->copy_map[0][s_data.j] && s_data.j < data->columns - 1)
     {
         if (data->copy_map[0][s_data.j] != '1')
             return 0;
         s_data.j++;
     }
     s_data.j = 0;
-    while (data->copy_map[data->rows][s_data.j] && s_data.j < data->columns)
+    //check the last row ! 
+    while (data->copy_map[data->rows - 1][s_data.j] && s_data.j < data->columns - 1)
     {
-        if (data->copy_map[data->rows][s_data.j] != '1')
+        if (data->copy_map[data->rows - 1][s_data.j] != '1')
             return 0;
         s_data.j++;
     }
-    while(data->copy_map[s_data.i][0] && data->copy_map[s_data.i])
+    while(s_data.i < data->rows)
     {
         if (data->copy_map[s_data.i][0] != '1')
             return 0;
         s_data.i++;
     }
-    while(data->copy_map[s_data.i][data->columns - 1] && data->copy_map[s_data.i])
+    s_data.i = 0;
+    while(s_data.i < data->rows)
     {
-        if (data->copy_map[s_data.i][data->columns - 1] != '1')
+        if (data->copy_map[s_data.i][data->columns - 2] != '1')
             return 0;
         s_data.i++;
     }
@@ -65,6 +67,8 @@ int is_closed_by_walls(t_map *data)
 int check_all_cases(t_map *data)
 {
     if(!is_rectangular(data))
-        return(free_matrix(data), 0);
-    
+        return (perror("this map is not rectangular\n"), 0);
+    if(!is_closed_by_walls(data))
+        return (perror("Error this walls!"), 0);
+    return (1);
 }
