@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map_name.c                                   :+:      :+:    :+:   */
+/*   free_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 13:24:47 by ayadouay          #+#    #+#             */
-/*   Updated: 2025/02/27 08:10:22 by ayadouay         ###   ########.fr       */
+/*   Created: 2025/02/27 10:24:31 by ayadouay          #+#    #+#             */
+/*   Updated: 2025/02/27 10:30:10 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int check_map_name(char *str)
+void    free_matrix(t_map *data)
 {
-    int len = ft_strlen(str);
-    if (len > 4 && str[len - 1] == 'r' && str[len - 2] == 'e' && str[len - 3] == 'b' && str[len - 4] == '.')
-        return (1);
-    return (0);
+    t_sdata s_data;
+    s_data.i = 0;
+
+    while (data->copy_map[s_data.i])
+        s_data.i++;
+    
+    s_data.i--;
+    while (s_data.i >= 0)
+        free(data->copy_map[s_data.i]);
+    free(data->copy_map);
 }
